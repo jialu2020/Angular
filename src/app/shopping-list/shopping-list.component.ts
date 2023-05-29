@@ -20,4 +20,12 @@ export class ShoppingListComponent implements OnInit {
   constructor(){}
   ngOnInit(){}
 
+  
+  onIngredientAdded(ingredient :Ingredients){
+
+    this.ingredients.push(ingredient);
+
+    console.log("push dao " )
+  }
+
 }
