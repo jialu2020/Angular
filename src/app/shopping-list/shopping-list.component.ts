@@ -12,8 +12,8 @@ import { ShoppingListService } from './shopping-list.service';
 
 export class ShoppingListComponent implements OnInit {
   
-   íngredients : Ingredients[];
-ingredients: any;
+   ingredients: Ingredients[];
+
    
 
 
@@ -21,7 +21,7 @@ ingredients: any;
   }
 
   ngOnInit(){
-     this.íngredients = this.shoppinglistService.getIngredients();
+     this.ingredients = this.shoppinglistService.getIngredients();
 
      console.log("id like to check here")
   }
@@ -29,7 +29,7 @@ ingredients: any;
   
   onIngredientAdded(ingredient :Ingredients){
 
-    this.íngredients.push(ingredient);
+    this.ingredients.push(ingredient);
 
       console.log("push dao " )
   }
