@@ -23,15 +23,16 @@ export class ShoppingListComponent implements OnInit {
   ngOnInit(){
      this.ingredients = this.shoppinglistService.getIngredients();
 
-     console.log("id like to check here")
+     this.shoppinglistService.ingredientsChange.subscribe(
+          (ingredients: Ingredients[]) => {
+            this.ingredients = ingredients;
+
+          }
+     );
+
+     console.log("id like to check here" + this.ingredients.length)
   }
 
-  
-  onIngredientAdded(ingredient :Ingredients){
 
-    this.ingredients.push(ingredient);
-
-      console.log("push dao " )
-  }
 
 }
