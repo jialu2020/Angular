@@ -5,10 +5,9 @@
         <ul class="list-group">
             <a href="#" 
             class="list-group-item" 
-            style="cursor: pointer"
-            
-            *ngFor="let ingredient of ingredients"
-            > {{ ingredient.name }}, ({{ ingredient.amount }})
+            style="cursor: pointer" 
+            *ngFor="let i of ingredients"
+            > {{ i.name }}, ({{ i.amount }})
         </a>
         </ul>
     </div>
