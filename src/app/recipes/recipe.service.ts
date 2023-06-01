@@ -45,11 +45,7 @@ export class RecipeService {
 
     addIngredientsToShoppingList(ingredients :Ingredients[]){
        this.sLService.addIngredientsList(ingredients);
-
         }
-
-
-
     }
     
 

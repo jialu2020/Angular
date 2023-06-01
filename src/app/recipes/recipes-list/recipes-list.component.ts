@@ -21,14 +21,5 @@ export class RecipesListComponent implements OnInit {
     this.recipes = this.rService.getRecipes();
   }
 
-  onRecipeSelected(recipe:Recipe){
-    this.rService.selectedRecipe.emit(recipe); 
-    // the recipe that we selected in the list
-
-
-   
-    console.log("ssss" + recipe.name)
-
-  }
 
 }
