@@ -9,6 +9,7 @@ import { RecipeService } from '../../recipe.service';
 })
 export class RecipesItemComponent implements OnInit{
  @Input() recipe: Recipe;
+ @Input() index : number;
 
 
   ngOnInit(){
@@ -18,13 +19,5 @@ export class RecipesItemComponent implements OnInit{
 
   }
 
-  onSelectRecipe(){
-    this.rService.selectedRecipe.emit(this.recipe); 
-    // the recipe that we selected in the list
 
-
-   
-    console.log(" i click right now the recipe : " + this.recipe.name)
-
-  }
 }
