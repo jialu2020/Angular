@@ -7,12 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = "none"
- loadedFeature = "recipe";
-  onNavigate(feature: string){
-    this.loadedFeature = feature;
 
-  }
-
-  ngOnInit(){
+    ngOnInit(){
   }
 }
