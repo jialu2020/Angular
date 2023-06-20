@@ -24,7 +24,7 @@ editedItem: Ingredients;
   editMode = false;
 
  constructor(private sLService : ShoppingListService){
-     this.sLService.startedEditing.subscribe(
+     this.subscription= this.sLService.startedEditing.subscribe(
          (index :number)=>{
              this.editedItemIndex = index;
              this.editMode = true;
