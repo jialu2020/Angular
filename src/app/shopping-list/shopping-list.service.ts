@@ -8,7 +8,7 @@ export class ShoppingListService {
 
 
 
-
+    startedEditing = new Subject<number>();
     private ingredientsLi : Ingredients[] = [ 
 
         new Ingredients("Apple", 5),
@@ -19,6 +19,10 @@ export class ShoppingListService {
     getIngredients(){
        return this.ingredientsLi.slice();
 
+    }
+
+    getIngredient(index : number){
+        return this.ingredientsLi[index];
     }
 
     addIngredients(ingredientAdd : Ingredients){
