@@ -1,6 +1,6 @@
 import {Component, OnInit, resolveForwardRef} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
-import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RecipeService} from "../recipe.service";
 
 @Component({
@@ -49,16 +49,16 @@ console.log(this.getControls())
                 recipeIngredients.push(
                     new FormGroup(
                         {
-                            'ingredientName':new FormControl(ingredient.name),
-                            'ingredientAmount':new FormControl(ingredient.amount)
+                            'ingredientName':new FormControl(ingredient.name ,Validators.required),
+                            'ingredientAmount':new FormControl(ingredient.amount, [Validators.required, Validators.min(0)])
                         }) );
                 }
 
         }
     }
       this.recipeForm = new FormGroup({
-          'name' : new FormControl(recipeName),
-          'image' : new FormControl(recipeImage),
+          'name' : new FormControl(recipeName ,Validators.required),
+          'image' : new FormControl(recipeImage, Validators.required),
           'description' : new FormControl(recipeDescription),
           'ingredients': recipeIngredients
 
@@ -78,5 +78,19 @@ console.log(this.getControls())
 
     }
 
-    protected readonly oncancel = oncancel;
+
+    onAddIngredient(){
+        (<FormArray>this.recipeForm.get('ingredients')).push(
+            new FormGroup(
+                {
+                    'ingredientName': new FormControl(null,Validators.required),
+                    'ingredientAmount' : new FormControl(null,Validators.required)
+                    // dont have a initial value, therefor with empty ()
+
+                }
+            )
+        )
+
+    }
+
 }

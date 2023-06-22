@@ -2,3 +2,20 @@
     width: 200px; /* Hier können Sie die gewünschte Breite angeben */
     height: auto; /* Die Höhe wird automatisch anhand des Seitenverhältnisses angepasst */
 }
+.aButton{
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 15px;
+    text-decoration: underline;
+
+    color: gray;
+}
+.aButton:hover{
+    color: red;
+}
+
+input.ng-invalid,
+textarea.ng-invalid{
+    border: 1px solid red;
+}
