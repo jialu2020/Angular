@@ -25,11 +25,22 @@ export class ShoppingListService {
         return this.ingredientsLi[index];
     }
 
+    deleteIngredient(index:number){
+        this.ingredientsLi.splice(index,1)
+        this.ingredientsChange.next(this.ingredientsLi.slice());
+    }
+
     addIngredients(ingredientAdd : Ingredients){
       this.ingredientsLi.push(ingredientAdd); 
       this.ingredientsChange.next(this.ingredientsLi.slice());
 
     }
+    upgradeIngredient(index: number , newingredient : Ingredients){
+     this.ingredientsLi[index] = newingredient;
+     this.ingredientsChange.next(this.ingredientsLi.slice());
+
+    }
+
 
     addIngredientsList(ingredients: Ingredients[]){
     //  for(let i of ingredients){

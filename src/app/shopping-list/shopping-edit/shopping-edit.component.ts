@@ -43,14 +43,30 @@ editedItem: Ingredients;
 
  }
 
-  onAddItem(form : NgForm){
+  onSubmit(form : NgForm){
      const value = form.value;
-
      const newIng = new Ingredients(value.name, value.amount);
-     this.sLService.addIngredients(newIng);
+     if(this.editMode){
+         this.sLService.upgradeIngredient(this.editedItemIndex , newIng)
 
-
+     }else{
+         this.sLService.addIngredients(newIng);
+     }
+      this.editMode=false;
+     form.reset();
   }
+    onClear(){
+     this.slForm.reset()
+        this.editMode=false;
+
+    }
+    onDelete(){
+     this.sLService.deleteIngredient(this.editedItemIndex);
+      this.onClear();
+     console.log(this.editedItemIndex)
+
+    }
+
 
     ngOnDestroy(): void {
      this.subscription.unsubscribe();

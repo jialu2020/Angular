@@ -1,0 +1,4 @@
+.img-responsive {
+    width: 200px; /* Hier können Sie die gewünschte Breite angeben */
+    height: auto; /* Die Höhe wird automatisch anhand des Seitenverhältnisses angepasst */
+}
