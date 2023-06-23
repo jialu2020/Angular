@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { RecipeService } from '../recipe.service';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Recipe} from "../recipe.model";
 import {ngbCarouselTransitionOut} from "@ng-bootstrap/ng-bootstrap/carousel/carousel-transition";
 
@@ -16,13 +16,14 @@ export class RecipesDetailComponent implements OnInit{
 
 
   constructor(private rService : RecipeService,
-              private route : ActivatedRoute){
+              private route : ActivatedRoute,
+              private router : Router){
   }
 
 
   addToShoppingList(){
 
-     console.log ("i clicked the add SL button!! :  " + this.recipe.ingredients)
+     console.log ( this.recipe.ingredients)
      this.rService.addIngredientsToShoppingList(this.recipe.ingredients);
 
 
@@ -38,9 +39,17 @@ export class RecipesDetailComponent implements OnInit{
           (par : Params) => {
               this.id = +par['id'];
               this.recipe = this.rService.getRecipesById(this.id)
+              console.log('details')
+              console.log(this.recipe)
           }
       )
         console.log('this id is ' + this.id)
+    }
+    onDelete(){
+      this.rService.deleteRecipe(this.id);
+      this.router.navigate(['../'])
+
+
     }
 
 

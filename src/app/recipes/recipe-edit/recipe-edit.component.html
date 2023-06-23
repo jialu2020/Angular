@@ -52,13 +52,13 @@
                         <input
                                 type="text"
                                 class="form-control"
-                                formControlName="ingredientName">
+                                formControlName="name">
                     </div>
                     <div class="col-xs-2">
                         <input
                                 type="number"
                                 class="form-control"
-                                formControlName="ingredientAmount">
+                                formControlName="amount">
                     </div>
                     <div class="col-xs-2">
                         <button class="aButton"  style="margin-top: 7px ">remove</button>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <button  class="form-control, btn btn-success" (click)="onAddIngredient()" style="margin-top: 10px">Add Ingredient</button>
+                            <button type="button" class="form-control, btn btn-success" (click)="onAddIngredient()" style="margin-top: 10px">Add Ingredient</button>
                         </div>
                     </div>
                 </div>

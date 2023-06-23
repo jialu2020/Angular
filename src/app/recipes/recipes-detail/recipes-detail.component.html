@@ -20,7 +20,7 @@
             <ul class="dropdown-menu">
                 <li style="cursor: pointer" ><a  (click)="addToShoppingList()">add to my Shopping List</a></li>
                 <li style="cursor: pointer" routerLink="edit"><a >Edit Recipe</a></li>
-                <li style="cursor: pointer" ><a>Delete Recipe</a></li>
+                <li style="cursor: pointer" (click)="onDelete()" ><a>Delete Recipe</a></li>
             </ul>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <p style="color:darkblue; font-style:inherit; font-size: medium;" >ingredients that you need: </p>
           <li class="list-group-item"
           *ngFor="let i of recipe.ingredients">
-               
+
 
                 {{ i.name }} - {{ i.amount }}
 
