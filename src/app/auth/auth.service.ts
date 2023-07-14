@@ -45,31 +45,33 @@ export class AuthService {
                     resData.idToken,
                     +resData.expiresIn);
 
-
             }
         ));
   }
 
+    login(email: string, password: string) {
+        return this.http
+            .post<AuthResponseData>(
+                'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA4hpXtrrJa6GwJQ_c6linszg4kK4FG5T0',
+                {
+                    email: email,
+                    password: password,
+                    returnSecureToken: true
+                }
+            )
+            .pipe(
 
-  login(email:string,password:string){
-
-      return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA4hpXtrrJa6GwJQ_c6linszg4kK4FG5T0',
-          {
-              email : email,
-              password: password ,
-              returnSecureToken : true
-          }
-          ).pipe(catchError(this.handleError)
-      ,tap( resData => {
-          this.handleAuthentication(
-              resData.email,
-              resData.localId,
-              resData.idToken,
-              +resData.expiresIn);
-
-
-      }));
-  }
+                catchError(this.handleError),
+                tap(resData => {
+                    this.handleAuthentication(
+                        resData.email,
+                        resData.localId,
+                        resData.idToken,
+                        +resData.expiresIn
+                    );
+                })
+            );
+    }
 
 
     private  handleAuthentication (email: string, userId: string, token : string , expiresIn: number){
