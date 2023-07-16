@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {BehaviorSubject, catchError, tap, throwError} from "rxjs";
 import {User} from "./user.model";
+import {Router} from "@angular/router";
+import {dateComparator} from "@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools";
+import {compareSegments} from "@angular/compiler-cli/src/ngtsc/sourcemaps/src/segment_marker";
 
 
 export interface AuthResponseData{
@@ -19,7 +22,7 @@ export interface AuthResponseData{
   providedIn: 'root'
 })
 export class AuthService {
-    user = new BehaviorSubject<User>(null);
+
     //Subject（主题）是一种特殊类型的 Observable。
     // 它既可以作为可观察对象发出数据，也可以充当观察者订阅其他可观察对象。
     // Subject 具有多重角色，可以同时充当数据源和数据接收者。
@@ -27,8 +30,14 @@ export class AuthService {
     // 而 Observable 通常只能被单个观察者订阅。
     // token : string = null;
     // behaviorSubject 立刻发送值
+    user = new BehaviorSubject<User>(null);
 
-  constructor( private http : HttpClient) { }
+
+
+    private tokenTimer :any;
+
+  constructor( private http : HttpClient ,
+               private router : Router) { }
 
 
   signup(email:string,password:string){
@@ -74,6 +83,64 @@ export class AuthService {
     }
 
 
+    logout(){
+      this.user.next(null);
+        this.router.navigate(['./auth']);
+        //localStorage.clear();
+        localStorage.removeItem('userData');
+        if(this.tokenTimer){
+            clearTimeout(this.tokenTimer);
+        }
+        this.tokenTimer = null;
+
+    }
+
+    autoLogout(expirationDuration : number){
+
+        console.log('auto logout time left : ')
+        console.log(expirationDuration)
+
+
+      //expirationDuration 过期时间
+      this.tokenTimer = setTimeout(()=>{
+          this.logout();
+      } , expirationDuration)
+
+
+    }
+
+    autoLogin(){
+      const userData: {
+          email:string;
+          id:string;
+          _token:string;
+          _tokenExpirationDate: Date
+      } = JSON.parse(localStorage.getItem('userData'));
+      //localstorage 的value 是string 类型， 通过JSON parse 转换为json
+      if(!userData){
+          return;
+      }
+      const loadedUser = new User(
+          userData.email,
+          userData.id,
+          userData._token,
+          new Date(userData._tokenExpirationDate)
+      )
+        if(loadedUser.token){
+            this.user.next(loadedUser);
+            const timeOut = userData._tokenExpirationDate.getTime() - new Date().getTime()
+            this.autoLogout(timeOut)
+
+
+        }
+
+    }
+
+
+
+
+
+
     private  handleAuthentication (email: string, userId: string, token : string , expiresIn: number){
         //handleAuthentication 方法的主要目的是在用户进行身份验证成功后，处理身份验证信息并创建用户对象
 
@@ -84,8 +151,11 @@ export class AuthService {
                 userId,
                 token,
                 expirationDate);
+        console.log('current user is : ')
         console.log(user)
         this.user.next(user);
+        this.autoLogout( expiresIn * 1000)
+        localStorage.setItem('userData' , JSON.stringify(user));
     }
 
   private handleError(errRes:HttpErrorResponse){

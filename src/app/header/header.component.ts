@@ -4,6 +4,7 @@ import {RecipeService} from "../recipes/recipe.service";
 import {Recipe} from "../recipes/recipe.model";
 import {AuthService} from "../auth/auth.service";
 import {Subscription} from "rxjs";
+import {Route, Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit , OnDestroy{
 
   constructor(private ds : DataStorageService ,
               private rs : RecipeService,
-              private as : AuthService) {
+              private as : AuthService,
+             ) {
   }
 
   recipeAmount : number;
@@ -67,6 +69,13 @@ export class HeaderComponent implements OnInit , OnDestroy{
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+  }
+
+  onLogout(){
+    this.as.logout();
+
+
+
   }
 
 }
