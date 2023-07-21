@@ -1,10 +1,11 @@
 <div class="container">
 
+    <ng-template appPlaceholder></ng-template>
 
     <div class="row" style="margin-top: 40px">
         <div class="col-xs-12 col-md-6 col-md-offset-3" >
-
-            <div *ngIf="isLoading" style="text-align: center ; margin-top: 50px"><app-loading-spinner></app-loading-spinner></div>
+            <div *ngIf="isLoading" style="text-align: center ; margin-top: 50px">
+                <app-loading-spinner></app-loading-spinner></div>
             <form [formGroup]="authForm"  (ngSubmit)="onSubmit()" *ngIf="!isLoading">
                 <div class="form-group">
                     <label for="email"> Email</label>
@@ -14,7 +15,10 @@
                     <label>password</label>
                     <input id="password" type="password" class="form-control" formControlName="password">
                 </div>
-                <div class="alert alert-danger" *ngIf="error"><p>{{error}}</p></div>
+<!--                <div class="alert alert-danger" *ngIf="error"><p>{{error}}</p></div>-->
+
+<!--                <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert>-->
+
                 <div>
                     <button class="btn btn-default" style="margin-right: 20px" type="submit"
                             [disabled]="authForm.invalid"

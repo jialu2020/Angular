@@ -116,6 +116,11 @@ export class AuthService {
           _token:string;
           _tokenExpirationDate: Date
       } = JSON.parse(localStorage.getItem('userData'));
+
+
+
+        console.log("auto login")
+        console.log(typeof userData._tokenExpirationDate)
       //localstorage 的value 是string 类型， 通过JSON parse 转换为json
       if(!userData){
           return;
@@ -126,9 +131,14 @@ export class AuthService {
           userData._token,
           new Date(userData._tokenExpirationDate)
       )
+        console.log("loded user")
+        console.log(loadedUser)
+
+
         if(loadedUser.token){
+
             this.user.next(loadedUser);
-            const timeOut = userData._tokenExpirationDate.getTime() - new Date().getTime()
+            const timeOut = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime()
             this.autoLogout(timeOut)
 
 
